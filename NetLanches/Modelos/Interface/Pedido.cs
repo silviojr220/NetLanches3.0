@@ -1,4 +1,4 @@
-﻿using NetLanches;
+﻿using NetLanches.Modelos.Interface;
 
 class PedidoItem
 {

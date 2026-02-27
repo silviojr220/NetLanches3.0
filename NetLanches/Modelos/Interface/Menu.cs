@@ -1,4 +1,6 @@
-﻿namespace NetLanches;
+﻿using NetLanches.Modelos.NovaPasta;
+
+namespace NetLanches.Modelos.Interface;
 
 class Menu
 {
@@ -12,6 +14,7 @@ class Menu
 
     private void CriarCardapio()
     {
+        //Lanches
         var coxinha = new ItemCardapio(1, "Coxinha", 3.50, "Temos com catupiry e frango");
         var kibe = new ItemCardapio(4, "Kibe", 3.00, "Kibe frito e assado");
 
@@ -26,7 +29,18 @@ class Menu
         empada.Sabores.Add("Catupiry", 1.00);
         empada.Sabores.Add("Carne", 1.50);
 
-        var refrigerante = new Bebidas(5, "Refrigerante", 4.00, "Coca, Guaraná ou Fanta");
+        var hamburguer = new Lanches(5, "Hamburger", 12.00, "Um hambúrger simples, mas que se quiser pode adiconar algo.");
+        hamburguer.Ingredientes.Add("Alface", 0.50);
+        hamburguer.Ingredientes.Add("Queijo", 0.70);
+        hamburguer.Ingredientes.Add("Tomate", 0.50);
+        hamburguer.Ingredientes.Add("Cebola", 0.60);
+
+        //Refrigerante (Desncessario colocar isso aqui, mas está aqui por organização mesmo
+        var refrigerante = new Bebidas(6, "Refrigerante", 4.00, "Opções Diversas");
+        refrigerante.SaborRefri.Add("Coca-Cola", 0);
+        refrigerante.SaborRefri.Add("Guaraná", 0);
+        refrigerante.SaborRefri.Add("Fanta", 0);
+
         refrigerante.Tamanhos.Add("Pequeno", 0);
         refrigerante.Tamanhos.Add("Médio", 1.50);
         refrigerante.Tamanhos.Add("Grande", 3.00);
@@ -37,14 +51,13 @@ class Menu
             pastel,
             empada,
             kibe,
+            hamburguer,
             refrigerante
         });
     }
 
     public void ExibirMenu()
     {
-
-
         bool continuar = true;
 
         while (continuar)
@@ -80,15 +93,24 @@ class Menu
             }
 
             if (itemEscolhido is Lanches lanche)
+            {
                 lanche.EscolherSabor();
+                lanche.EscolherIngredientes();
+            }
+
 
             if (itemEscolhido is Bebidas bebida)
+            {
+                bebida.EscolherSaborRefri();
                 bebida.EscolherTamanho();
+            }
+
 
             // Validação Quantidade
             Console.Write("Quantidade: ");
             if (!int.TryParse(Console.ReadLine(), out int quantidade) || quantidade <= 0)
             {
+
                 MostrarErro();
                 continue;
             }
@@ -125,7 +147,7 @@ class Menu
                     }
                     else if (respostaContinuar == "n")
                     {
-                        continuar = false; // Encerra loop principal
+                        continuar = false;
                         respostaValida = true;
 
                     }
@@ -148,6 +170,7 @@ class Menu
         Console.ResetColor();
         Console.WriteLine("Pressione qualquer tecla para continuar...");
         Console.ReadKey();
+
     }
 
     private void MostrarResumo()
@@ -174,20 +197,18 @@ class Menu
 
     private void MostrarLogo()
     {
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
-        Console.WriteLine(@"███╗░░██╗███████╗████████╗██╗░░░░░░█████╗░███╗░░██╗░█████╗░██╗░░██╗███████╗░██████╗");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine(@"████╗░██║██╔════╝╚══██╔══╝██║░░░░░██╔══██╗████╗░██║██╔══██╗██║░░██║██╔════╝██╔════╝");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine(@"██╔██╗██║█████╗░░░░░██║░░░██║░░░░░███████║██╔██╗██║██║░░╚═╝███████║█████╗░░╚█████╗░");
-        Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine(@"██║╚████║██╔══╝░░░░░██║░░░██║░░░░░██╔══██║██║╚████║██║░░██╗██╔══██║██╔══╝░░░╚═══██╗");
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine(@"██║░╚███║███████╗░░░██║░░░███████╗██║░░██║██║░╚███║╚█████╔╝██║░░██║███████╗██████╔╝");
-        Console.ForegroundColor = ConsoleColor.DarkYellow;
-        Console.WriteLine(@"╚═╝░░╚══╝╚══════╝░░░╚═╝░░░╚══════╝╚═╝░░╚═╝╚═╝░░╚══╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░");
-        Console.ResetColor();
+        string logo1 = "\x1b[37m███╗  ██╗███████╗████████╗\x1b[0m  \x1b[38;5;214m██╗      █████╗ ███╗  ██╗ █████╗ ██╗  ██╗███████╗ ██████╗\x1b[0m";
+        string logo2 = "\x1b[37m████╗ ██║██╔════╝╚══██╔══╝\x1b[0m  \x1b[38;5;226m██║     ██╔══██╗████╗ ██║██╔══██╗██║  ██║██╔════╝██╔════╝\x1b[0m";
+        string logo3 = "\x1b[37m██╔██╗██║█████╗     ██║   \x1b[0m  \x1b[38;5;9m██║     ███████║██╔██╗██║██║  ╚═╝███████║█████╗  ╚█████╗ \x1b[0m";
+        string logo4 = "\x1b[37m██║╚████║██╔══╝     ██║   \x1b[0m  \x1b[38;5;47m██║     ██╔══██║██║╚████║██║  ██╗██╔══██║██╔══╝   ╚═══██╗\x1b[0m";
+        string logo5 = "\x1b[37m██║ ╚███║███████╗   ██║   \x1b[0m  \x1b[38;5;214m███████╗██║  ██║██║ ╚███║╚█████╔╝██║  ██║███████╗██████╔╝\x1b[0m";
+        string logo6 = "\x1b[37m╚═╝  ╚══╝╚══════╝   ╚═╝   \x1b[0m  \x1b[38;5;208m╚══════╝╚═╝  ╚═╝╚═╝  ╚══╝ ╚════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ \x1b[0m";
 
-        
+        Console.WriteLine($"{logo1}");
+        Console.WriteLine($"{logo2}");
+        Console.WriteLine($"{logo3}");
+        Console.WriteLine($"{logo4}");
+        Console.WriteLine($"{logo5}");
+        Console.WriteLine($"{logo6}");
     }
 }
