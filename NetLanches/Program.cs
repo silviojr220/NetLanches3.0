@@ -1,11 +1,9 @@
-﻿using NetLanches;
+﻿using NetLanches.Modelos.Interface;
 
 class Program
 {
     static void Main()
     {
-        Console.WriteLine(@"");
-
         Menu menu = new Menu();
         menu.ExibirMenu();
     }

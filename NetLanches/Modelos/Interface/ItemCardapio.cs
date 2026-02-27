@@ -1,4 +1,4 @@
-﻿namespace NetLanches;
+﻿namespace NetLanches.Modelos.Interface;
 
 class ItemCardapio
 {
@@ -24,7 +24,6 @@ class ItemCardapio
     {
         return Nome;
     }
-
     public void ExibirDetalhes()
     {
         Console.WriteLine($"{Id} - {Nome} | R$ {Preco:F2}");
