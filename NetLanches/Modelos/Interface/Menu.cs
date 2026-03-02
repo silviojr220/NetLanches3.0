@@ -4,7 +4,7 @@ namespace NetLanches.Modelos.Interface;
 
 class Menu
 {
-    private List<ItemCardapio> cardapio = new();
+    public List<ItemCardapio> cardapio = new();
     private List<PedidoItem> itensPedido = new();
 
     public Menu()
@@ -55,7 +55,34 @@ class Menu
             refrigerante
         });
     }
+    public void ExibirCardapioSimples()
+    {
+        Console.Clear();
+        MostrarLogo();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("\n=========== CARDÁPIO ===========\n");
+        Console.ResetColor();
 
+        foreach (var item in cardapio)
+        {
+            string nome = item.Nome;
+            string preco = $"R$ {item.Preco:F2}";
+
+            // Define o tamanho total da linha
+            int larguraTotal = 70;
+
+            // Calcula quantos pontos serão necessários
+            int pontos = larguraTotal - nome.Length - preco.Length;
+
+            if (pontos < 0) pontos = 2;
+
+            string linha = nome + new string('.', pontos) + preco;
+
+            Console.WriteLine(linha);
+        }
+
+        Console.WriteLine();
+    }
     public void ExibirMenu()
     {
         bool continuar = true;
@@ -64,9 +91,6 @@ class Menu
         {
             Console.Clear();
             MostrarLogo();
-
-            Console.WriteLine("\nBem vindo ao NetLanches!");
-
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\n===== CARDÁPIO =====\n");
             Console.ResetColor();
@@ -162,8 +186,7 @@ class Menu
             MostrarResumo();
         }
     }
-
-    private void MostrarErro()
+    public void MostrarErro()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\nOpção inválida!");
@@ -172,7 +195,6 @@ class Menu
         Console.ReadKey();
 
     }
-
     private void MostrarResumo()
     {
         Console.Clear();
@@ -192,10 +214,8 @@ class Menu
         Console.WriteLine($"\nTotal a pagar: R$ {total:F2}");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("\nObrigado pela preferência! =)");
-        Console.ResetColor();
     }
-
-    private void MostrarLogo()
+    public void MostrarLogo()
     {
         string logo1 = "\x1b[37m███╗  ██╗███████╗████████╗\x1b[0m  \x1b[38;5;214m██╗      █████╗ ███╗  ██╗ █████╗ ██╗  ██╗███████╗ ██████╗\x1b[0m";
         string logo2 = "\x1b[37m████╗ ██║██╔════╝╚══██╔══╝\x1b[0m  \x1b[38;5;226m██║     ██╔══██╗████╗ ██║██╔══██╗██║  ██║██╔════╝██╔════╝\x1b[0m";

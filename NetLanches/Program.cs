@@ -4,7 +4,7 @@ class Program
 {
     static void Main()
     {
-        Menu menu = new Menu();
-        menu.ExibirMenu();
+        TelaInicio telaInicio = new();
+        telaInicio.MostrarTelaInicio();
     }
 }

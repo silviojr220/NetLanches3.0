@@ -1,6 +1,6 @@
 ﻿using NetLanches.Modelos.Interface;
 
-class PedidoItem
+public class PedidoItem
 {
     public ItemCardapio Item { get; set; }
     public int Quantidade { get; set; }
