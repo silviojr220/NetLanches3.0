@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Modelos\NovaPasta\**" />
+    <Compile Remove="Modelos\PDF\**" />
+    <EmbeddedResource Remove="Modelos\NovaPasta\**" />
+    <EmbeddedResource Remove="Modelos\PDF\**" />
+    <None Remove="Modelos\NovaPasta\**" />
+    <None Remove="Modelos\PDF\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Modelos\Produtos\Hamburger.cs" />
   </ItemGroup>
 
